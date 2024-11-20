@@ -84,3 +84,32 @@ CREATE TABLE usuario
     email      VARCHAR(100) NOT NULL,
     senha      VARCHAR(255) NOT NULL
 );
+
+--Criação tabela Contas a receber
+
+create table Contas_a_receber
+(
+   pagador INT,
+   recebedor INT,
+   numero_agencia INT,
+   nome_agencia VARCHAR(100),
+   data_vencimento INT,
+   data_pagamento INT,
+   Valor Decimal not null,
+   status ENUM('Não paga', 'Paga') DEFAULT 'Não paga' 
+);
+
+ALTER TABLE Contas_a_receber
+ADD CONSTRAINT fk_pagador_receber FOREIGN KEY (pagador) 
+REFERENCES usuario(usuario_id),
+ADD CONSTRAINT fk_recebedor_receber FOREIGN KEY (recebedor) 
+REFERENCES usuario(usuario_id);
+
+alter table contas_a_receber 
+add CONSTRAINT fk_pagador FOREIGN KEY (pagador) REFERENCES usuario(usuario_id),
+add  CONSTRAINT fk_recebedor FOREIGN KEY (recebedor) REFERENCES usuario(usuario_id),
+
+alter table contas_a_receber 
+add CONSTRAINT fk_numero_agencia FOREIGN KEY (numero_agencia) REFERENCES Conta(numero_agencia),
+add CONSTRAINT fk_nome_agencia FOREIGN KEY (nome_agencia) REFERENCES Conta(nome_agencia);
+
